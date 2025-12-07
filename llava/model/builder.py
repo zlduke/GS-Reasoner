@@ -355,13 +355,11 @@ def load_pretrained_model(
                 else:
                     from llava.model.language_model.llava_qwen import LlavaQwenConfig
 
-                    print("here is called1")
                     if overwrite_config is not None:
                         llava_cfg = LlavaQwenConfig.from_pretrained(model_path)
                         rank0_print(f"Overwriting config with {overwrite_config}")
                         for k, v in overwrite_config.items():
                             setattr(llava_cfg, k, v)
-                        print("here is called2")
                         model = LlavaQwenForCausalLM.from_pretrained(
                             model_path,
                             low_cpu_mem_usage=True,
@@ -369,7 +367,6 @@ def load_pretrained_model(
                             config=llava_cfg,
                             **kwargs,
                         )
-                        print("here is called3")
                     else:
                         model = LlavaQwenForCausalLM.from_pretrained(
                             model_path,
